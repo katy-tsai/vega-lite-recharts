@@ -1,0 +1,42 @@
+[
+    {
+        "name": "IP Camera",
+        "state": "On Line",
+        "num": 1888
+    },
+    {
+        "name": "Smart Plug",
+        "state": "On Line",
+        "num": 1600
+    },
+    {
+        "name": "Smart Bulb",
+        "state": "On Line",
+        "num": 818
+    },
+    {
+        "name": "Doorbell",
+        "state": "On Line",
+        "num": 88
+    },
+    {
+        "name": "IP Camera",
+        "state": "Off Line",
+        "num": 18
+    },
+    {
+        "name": "Smart Plug",
+        "state": "Off Line",
+        "num": 88
+    },
+    {
+        "name": "Smart Bulb",
+        "state": "Off Line",
+        "num": 70
+    },
+    {
+        "name": "Doorbell",
+        "state": "Off Line",
+        "num": 0
+    }
+]

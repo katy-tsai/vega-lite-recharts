@@ -1,0 +1,53 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": {
+        "text": "近30日流量(Byte/s)",
+        "anchor": "start"
+    },
+    "width": 500,
+    "data": {
+        "url": "../data/areaData.json"
+    },
+    "mark": {
+        "type": "area",
+        "tooltip": true,
+        "line": {
+            "color": "#1890FF"
+        }
+    },
+    "encoding": {
+        "x": {
+            "field": "name",
+            "type": "temporal",
+            "axis": {
+                "format": "%d",
+                "grid": false,
+                "title": null
+            }
+        },
+        "y": {
+            "field": "uv",
+            "type": "quantitative",
+            "axis": {
+                "grid": true,
+                "title": null
+            }
+        },
+        "color": {
+            "field": "type",
+            "scale": {
+                "range": [
+                    "#B9D9FC"
+                ]
+            },
+            "legend": {
+                "orient": "none",
+                "direction": "horizontal",
+                "legendX": 250,
+                "legendY": 230,
+                "title": null,
+                "symbolType": "square"
+            }
+        }
+    }
+}

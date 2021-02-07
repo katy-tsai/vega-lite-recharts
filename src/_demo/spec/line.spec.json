@@ -1,0 +1,68 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": {
+        "text": " 目前連線狀態",
+        "anchor": "start"
+    },
+    "width": 300,
+    "data": {
+        "url": "../data/lineData.json"
+    },
+    "mark": {
+        "type": "line",
+        "tooltip": true,
+        "color": "#3BA0FF"
+    },
+    "encoding": {
+        "x": {
+            "field": "name",
+            "type": "nominal",
+            "title": null,
+            "axis": {
+                "labelAngle": 0,
+                "labelOverlap": false,
+                "grid": false,
+                "values": [
+                    "IP Camera",
+                    "Smart Plug",
+                    "Smart Bulb",
+                    "Doorbell"
+                ]
+            }
+        },
+        "y": {
+            "field": "num",
+            "type": "quantitative",
+            "axis": {
+                "grid": true,
+                "values": [
+                    0,
+                    400,
+                    800,
+                    1200,
+                    1600,
+                    2000
+                ]
+            },
+            "title": null
+        },
+        "color": {
+            "field": "state",
+            "type": "nominal",
+            "scale": {
+                "range": [
+                    "#50CA74",
+                    "#3FA1FF"
+                ]
+            },
+            "legend": {
+                "orient": "none",
+                "direction": "horizontal",
+                "legendX": 100,
+                "legendY": 230,
+                "title": null,
+                "symbolType": "stroke"
+            }
+        }
+    }
+}

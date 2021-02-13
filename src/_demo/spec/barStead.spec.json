@@ -1,0 +1,53 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Status",
+    "width": 200,
+    "data": {
+        "url": "../data/bar2Data.json"
+    },
+    "mark": {
+        "type": "bar",
+        "tooltip": true
+    },
+    "encoding": {
+        "x": {
+            "field": "type",
+            "type": "ordinal",
+            "axis": {
+                "grid": false
+            }
+        },
+        "y": {
+            "field": "count",
+            "type": "quantitative",
+            "axis": {
+                "grid": true,
+                "values": [
+                    0,
+                    400,
+                    800,
+                    1200,
+                    1600,
+                    2000
+                ]
+            }
+        },
+        "color": {
+            "field": "status",
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                    "On Line",
+                    "Off Line"
+                ],
+                "range": [
+                    "#B8580A",
+                    "#0EA8A7"
+                ]
+            }
+        },
+        "opacity": {
+            "value": 0.8
+        }
+    }
+}

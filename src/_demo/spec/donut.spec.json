@@ -1,0 +1,36 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": {
+        "text": "Top 5 Channel (Count by Event)",
+        "anchor": "start"
+    },
+    "data": {
+        "url": "../data/dountData.json"
+    },
+    "mark": {
+        "type": "arc",
+        "tooltip": true,
+        "innerRadius": 50,
+        "outerRadius": 100
+    },
+    "encoding": {
+        "theta": {
+            "field": "percent"
+        },
+        "color": {
+            "field": "channel",
+            "scale": {
+                "range": [
+                    "#1B70BF",
+                    "#B53B50",
+                    "#A04F10",
+                    "#2A9349",
+                    "#1A9393"
+                ]
+            }
+        },
+        "opacity": {
+            "value": 0.8
+        }
+    }
+}

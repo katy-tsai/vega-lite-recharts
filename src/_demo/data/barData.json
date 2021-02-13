@@ -1,0 +1,26 @@
+[
+    {
+        "month": "8月",
+        "device": 800
+    },
+    {
+        "month": "9月",
+        "device": 1000
+    },
+    {
+        "month": "10月",
+        "device": 1200
+    },
+    {
+        "month": "11月",
+        "device": 1400
+    },
+    {
+        "month": "12月",
+        "device": 2000
+    },
+    {
+        "month": "1月",
+        "device": 3000
+    }
+]

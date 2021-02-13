@@ -1,0 +1,22 @@
+[
+    {
+        "type": "dvr",
+        "status": "On Line",
+        "count": 880
+    },
+    {
+        "type": "ip_camera",
+        "status": "On Line",
+        "count": 1888
+    },
+    {
+        "type": "dvr",
+        "status": "Off Line",
+        "count": 18
+    },
+    {
+        "type": "ip_camera",
+        "status": "Off Line",
+        "count": 188
+    }
+]

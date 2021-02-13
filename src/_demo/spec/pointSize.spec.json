@@ -1,0 +1,31 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "A bubbleplot showing horsepower ",
+    "data": {
+        "url": "../data/car.json"
+    },
+    "mark": {
+        "type": "point",
+        "color": "#8984D8"
+    },
+    "encoding": {
+        "x": {
+            "field": "Horsepower",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "Miles_per_Gallon",
+            "type": "quantitative"
+        },
+        "size": {
+            "field": "Acceleration",
+            "type": "quantitative",
+            "scale": {
+                "range": [
+                    16,
+                    255
+                ]
+            }
+        }
+    }
+}

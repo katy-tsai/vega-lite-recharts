@@ -16,9 +16,8 @@ export const defaultMark = {
 
 export const defaultXAxis = {
   field: "date",
-  type: "temporal",
+  type: "nominal",
   axis: {
-    format: "%d",
     grid: true,
     title: null,
   },
@@ -35,12 +34,33 @@ export const defaultYAxis = {
 
 export const defaultColorAxis = {
   field: "color",
-  type: "nominal",
+  type: "category",
   scale: {
     domain: [],
     range: [],
   },
 };
+
+export const defaultTheta = {
+  field: "theta",
+  type: "quantitative"
+}
+
+export const defaultOpacity = {
+  "value": 1
+}
+
+export const defaultSizeAxis = {
+  field: "size",
+  type: "quantitative",
+  scale: {
+    range: [
+      16,
+      255
+    ]
+  }
+
+}
 
 export const getTitleObj = (title) => {
   if (title) {
@@ -66,9 +86,6 @@ export const getMarkObj = (mark) => {
 
 export const getChartType = (mark) => {
   if (mark) {
-    if (mark === "point") {
-      return "Scatter";
-    }
     if (typeof mark === "string") {
       return upperCaseStr(mark);
     } else {
@@ -82,10 +99,13 @@ export const upperCaseStr = (str) => {
   return str[0].toUpperCase() + str.slice(1);
 };
 
-export const getXAxis = (xAxis) => {
+export const getXAxis = (xAxis, column) => {
   if (xAxis) {
     if (typeof xAxis === "string") {
       xAxis = { field: xAxis };
+    }
+    if (column) {
+      xAxis = { ...xAxis, field: column.field, type: column.type };
     }
     xAxis = { ...defaultXAxis, ...xAxis };
     let { values: ticks, field: dataKey, type: vegaType, ...rest } = xAxis;
@@ -129,14 +149,58 @@ export const getColorAxis = (colorAxis) => {
   return null;
 };
 
+export const getSizeAxis = (sizeAxis) => {
+  if (sizeAxis) {
+    if (typeof sizeAxis === "string") {
+      sizeAxis = { field: sizeAxis };
+    }
+    sizeAxis = { ...defaultSizeAxis, ...sizeAxis };
+    let { values: ticks, field: dataKey, type: vegaType, ...rest } = sizeAxis;
+    let type = "category";
+    if (vegaType === "quantitative") {
+      type = "number";
+    }
+    return { dataKey, type, vegaType, ...rest };
+  }
+  return null;
+}
+
+export const getOpacity = (opacity) => {
+  if (opacity) {
+    if (typeof opacity === "string") {
+      opacity = { value: opacity };
+    }
+    return { ...defaultOpacity, ...opacity };
+  }
+  return { ...defaultOpacity }
+}
+export const getColumn = (column) => {
+  if (column) {
+    return { ...column }
+  }
+  return null;
+}
+export const getThetaAxis = (theta) => {
+  if (theta) {
+    if (typeof theta === "string") {
+      theta = { field: theta };
+    }
+    return { ...defaultTheta, ...theta };
+  }
+  return null;
+}
 export const parseSpec = (spec) => {
   return {
     chartType: getChartType(spec.mark),
     title: getTitleObj(spec.title),
     mark: getMarkObj(spec.mark),
     encoding: spec.encoding,
-    xAxis: getXAxis(spec.encoding.x),
+    xAxis: getXAxis(spec.encoding.x, spec.encoding.column),
     yAxis: getYAxis(spec.encoding.y),
     colorAxis: getColorAxis(spec.encoding.color),
+    thetaAxis: getThetaAxis(spec.encoding.theta),
+    sizeAxis: getSizeAxis(spec.encoding.size),
+    opacity: getOpacity(spec.encoding.opacity),
+    column: getColumn(spec.encoding.column)
   };
 };

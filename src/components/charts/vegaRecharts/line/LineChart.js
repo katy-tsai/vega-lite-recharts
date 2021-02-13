@@ -1,8 +1,8 @@
 import React from "react";
-import { Line, Tooltip } from "recharts";
+import { Line, Tooltip, Legend } from "recharts";
 import ComposedChart from "../composedChart/ComposedChart";
 import { colorProcessor } from "../../../utils/chartDataUtil";
-
+import LineTooltip from './LineTooltip';
 const lineColors = [
   "#da9708",
   "#5e35b1",
@@ -24,10 +24,17 @@ const LineChart = ({
   colors = lineColors,
   width,
   height,
+  xAxisLine,
+  yAxisLine,
+  chartMargin,
+  isLegend
 }) => {
   const { tooltip: isTooltip, point } = mark;
-  const { scale } = colorAxis;
-
+  const { scale, field } = colorAxis || {};
+  let showLegend = field ? true : false;
+  if (isLegend != undefined) {
+    showLegend = isLegend;
+  }
   return (
     <ComposedChart
       data={data}
@@ -36,11 +43,13 @@ const LineChart = ({
       yAxis={yAxis}
       width={width}
       height={height}
+      xAxisLine={xAxisLine}
+      yAxisLine={yAxisLine}
+      chartMargin={chartMargin}
     >
-      {isTooltip ? <Tooltip /> : ""}
+      {isTooltip ? <Tooltip content={<LineTooltip />} /> : ""}
       {[...sets].map((key, index) => {
-        let fillColor = colorProcessor(key, index, scale, colors);
-        console.log("key", key);
+        let fillColor = colorProcessor(key, index, scale, colors, mark);
 
         return (
           <Line
@@ -58,6 +67,7 @@ const LineChart = ({
           />
         );
       })}
+      {showLegend && <Legend iconType="line" iconSize={12} />}
     </ComposedChart>
   );
 };

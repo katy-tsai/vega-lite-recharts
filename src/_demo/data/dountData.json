@@ -1,0 +1,22 @@
+[
+    {
+        "channel": "Door",
+        "percent": 12.5
+    },
+    {
+        "channel": "Boss",
+        "percent": 32.14
+    },
+    {
+        "channel": "Top Floor ",
+        "percent": 25
+    },
+    {
+        "channel": "5th Floor",
+        "percent": 16.07
+    },
+    {
+        "channel": "1st Floor",
+        "percent": 14.29
+    }
+]

@@ -1,0 +1,34 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": {
+        "text": "Device",
+        "anchor": "start"
+    },
+    "data": {
+        "url": "../data/arcData.json"
+    },
+    "mark": {
+        "type": "arc",
+        "tooltip": true
+    },
+    "encoding": {
+        "theta": {
+            "field": "percent",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "type",
+            "type": "nominal",
+            "scale": {
+                "range": [
+                    "#B8580A",
+                    "#1988B9",
+                    "#0EA8A7"
+                ]
+            }
+        },
+        "opacity": {
+            "value": 0.9
+        }
+    }
+}

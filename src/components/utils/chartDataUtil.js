@@ -1,16 +1,18 @@
 import React from "react";
 import dayjs from "dayjs";
 export const chartDataGenerate = (data, spec) => {
-  const { chartType, colorAxis, xAxis, yAxis } = spec;
-  if (chartType === "arc") {
+  const { chartType, colorAxis, xAxis, yAxis, column } = spec;
+  console.log('column', column);
+  if (chartType === 'Arc') {
     return { chartdata: data };
   }
   const sets = new Set();
-  const axisX = xAxis.dataKey;
-  const axisY = yAxis.dataKey;
+  let axisX = xAxis.dataKey;
+  let axisY = yAxis.dataKey;
   let chartdata = data;
   if (colorAxis) {
-    const axisColor = colorAxis.field;
+    let axisColor = colorAxis.field;
+
     chartdata = data.reduce((pre, cur) => {
       var occurs = pre.reduce(function (n, item, i) {
         return item[axisX] === cur[axisX] ? i : n;
@@ -26,20 +28,26 @@ export const chartDataGenerate = (data, spec) => {
     }, []);
   } else {
     if (
-      chartType === "bar" &&
+      chartType === "Bar" &&
       xAxis.type === "number" &&
       yAxis.type === "category"
     ) {
-      sets.add(axisY);
-    } else {
       sets.add(axisX);
+    } else {
+      sets.add(axisY);
     }
   }
 
   return { chartdata, sets };
 };
 
-export const colorProcessor = (key, index, scale, colors) => {
+export const colorProcessor = (key, index, scale, colors, mark) => {
+  if (mark && mark.color) {
+    colors = [mark.color, ...colors];
+  }
+  if (!scale) {
+    return colors[index % colors.length];
+  }
   const { domain, range } = scale;
   let colorArray = [...range, ...colors];
   if (domain && range && domain.length > 0 && range.length > 0) {
@@ -52,9 +60,9 @@ export const colorProcessor = (key, index, scale, colors) => {
   }
 };
 
-export const gradientColors = (sets, scale, colors) => {
+export const gradientColors = (sets, scale, colors, mark) => {
   return [...sets].map((key, index) => {
-    const color = colorProcessor(key, index, scale, colors);
+    const color = colorProcessor(key, index, scale, colors, mark);
     return (
       <defs key={`Gradient_${index}`}>
         <linearGradient id={`Gradient_${index}`} x1="0" y1="0" x2="0" y2="1">
@@ -66,15 +74,38 @@ export const gradientColors = (sets, scale, colors) => {
   });
 };
 
-export const getAxisProps = ({ axisType, option, data }) => {
+export const getZaxisProps = ({ option, data, chartType }) => {
+  if (option) {
+    const { dataKey, type, scale } = option;
+    let { range, domain } = scale;
+    if (!domain) {
+      domain = [0, Math.max.apply(
+        null,
+        data.map((entry) => entry[dataKey])
+      )];
+    }
+    return { dataKey, type, range, domain }
+  }
+  return null;
+}
+
+export const getAxisProps = ({ axisType, option, data, chartType }) => {
   const { dataKey, axis, type, vegaType, title } = option;
   const { values: ticks, format } = axis;
   let props = { type: "category" };
   if (type) {
     props = { ...props, type };
   }
+  console.log(chartType, axisType, dataKey);
+  console.log(Object.keys(data[0]));
   if (Object.keys(data[0]).includes(dataKey)) {
-    props = { ...props, dataKey };
+    console.log(chartType, axisType, type);
+    if (chartType === 'Bar' && axisType === "xAxis" && type === 'number') {
+      props = { ...props }
+    } else {
+      props = { ...props, dataKey };
+    }
+
   }
   if (ticks && ticks.length > 0) {
     props = { ...props, ticks: [...ticks] };
@@ -82,6 +113,7 @@ export const getAxisProps = ({ axisType, option, data }) => {
   if (title) {
     props = { ...props, label: { value: title } };
   }
+
   if (vegaType === "temporal" && format) {
     console.log("format", format);
 
@@ -93,6 +125,7 @@ export const getAxisProps = ({ axisType, option, data }) => {
       },
     };
   }
+
   if (axisType === "xAxis" && vegaType === "nominal") {
     props = {
       ...props,

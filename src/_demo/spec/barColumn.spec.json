@@ -1,0 +1,58 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Status",
+    "width": 200,
+    "data": {
+        "url": "../data/statusData.json"
+    },
+    "mark": {
+        "type": "bar",
+        "tooltip": true
+    },
+    "encoding": {
+        "column": {
+            "field": "status",
+            "type": "ordinal",
+            "spacing": 0
+        },
+        "x": {
+            "field": "type",
+            "type": "nominal",
+            "axis": {
+                "grid": false
+            }
+        },
+        "y": {
+            "field": "count",
+            "type": "quantitative",
+            "axis": {
+                "grid": true,
+                "values": [
+                    0,
+                    400,
+                    800,
+                    1200,
+                    1600,
+                    2000
+                ]
+            }
+        },
+        "color": {
+            "field": "type",
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                    "dvr",
+                    "ip_camera"
+                ],
+                "range": [
+                    "#B8580A",
+                    "#0EA8A7"
+                ]
+            }
+        },
+        "opacity": {
+            "value": 0.8
+        }
+    }
+}

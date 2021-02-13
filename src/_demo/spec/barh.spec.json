@@ -1,0 +1,36 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Event",
+    "width": 300,
+    "data": {
+        "url": "../data/barhData.json"
+    },
+    "mark": {
+        "type": "bar",
+        "tooltip": true,
+        "color": "#ff9900"
+    },
+    "encoding": {
+        "x": {
+            "field": "count",
+            "type": "quantitative",
+            "axis": {
+                "values": [
+                    0,
+                    2,
+                    4,
+                    6,
+                    8,
+                    10
+                ]
+            }
+        },
+        "y": {
+            "field": "type",
+            "type": "ordinal"
+        },
+        "opacity": {
+            "value": 0.8
+        }
+    }
+}

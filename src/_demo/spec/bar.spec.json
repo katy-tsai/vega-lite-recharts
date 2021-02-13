@@ -1,0 +1,45 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": {
+        "text": " 近半年設備量",
+        "anchor": "start"
+    },
+    "width": 300,
+    "data": {
+        "url": "../data/barData.json"
+    },
+    "mark": {
+        "type": "bar",
+        "tooltip": true,
+        "color": "#3BA0FF"
+    },
+    "encoding": {
+        "x": {
+            "field": "month",
+            "type": "nominal",
+            "title": null,
+            "sort": {
+                "order": null
+            }
+        },
+        "y": {
+            "field": "device",
+            "type": "quantitative",
+            "axis": {
+                "values": [
+                    0,
+                    500,
+                    1000,
+                    1500,
+                    2000,
+                    2500,
+                    3000
+                ]
+            },
+            "title": null
+        },
+        "opacity": {
+            "value": 0.8
+        }
+    }
+}
